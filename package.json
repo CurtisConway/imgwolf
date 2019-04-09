@@ -19,13 +19,19 @@
   "homepage": "https://github.com/CurtisConway/imgwolf#readme",
   "dependencies": {
     "aws-sdk": "^2.437.0",
+    "bcrypt": "^3.0.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",
     "express-async-errors": "^3.1.1",
+    "helmet": "^3.16.0",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.0",
     "winston": "^3.2.1",
     "winston-mongodb": "^5.0.0"
   },
   "devDependencies": {
-    "jest": "^24.7.1"
+    "jest": "^24.7.1",
+    "supertest": "^4.0.2"
   }
 }
