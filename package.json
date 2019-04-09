@@ -1,0 +1,31 @@
+{
+  "name": "imgwolf",
+  "version": "0.0.1",
+  "description": "Simple image storage and manipulation API",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test-watch": "jest --watchAll --verbose --runInBand"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CurtisConway/imgwolf.git"
+  },
+  "author": "CurtisConway",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CurtisConway/imgwolf/issues"
+  },
+  "homepage": "https://github.com/CurtisConway/imgwolf#readme",
+  "dependencies": {
+    "aws-sdk": "^2.437.0",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-async-errors": "^3.1.1",
+    "winston": "^3.2.1",
+    "winston-mongodb": "^5.0.0"
+  },
+  "devDependencies": {
+    "jest": "^24.7.1"
+  }
+}
