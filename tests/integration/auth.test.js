@@ -1,61 +1,65 @@
+require('dotenv').config();
 const request = require('supertest');
 const jwt = require('jsonwebtoken');
-// const {User} = require('../../src/models/user');
-// const mongoose = require('mongoose');
-
-let server;
 
 describe('/api/auth', () => {
-    beforeEach(() => {
-        server = require('../../index');
-    });
 
     describe('POST /', () => {
+        let server;
+
+        let email;
+        let password;
+
+        const exec = async () => {
+            return await request(server)
+                .post('/api/auth')
+                .send({ email, password })
+                .set('Accept', 'application/json');
+        };
+
+        beforeEach(() => {
+            server = require('../../index');
+        });
+        afterEach(() => {
+            server.close();
+        });
 
         it('returns 400 if validation fails', async () => {
-            const response = await request(server)
-                .post('/api/auth')
-                .send({
-                    email: 'abc',
-                    password: 'abc'
-                });
+            email = 'abc';
+            password = 'abc';
+
+            const response = await exec();
 
             expect(response.status).toBe(400);
         });
 
         it('returns 400 if user does not exist', async () => {
-            const response = await request(server)
-                .post('/api/auth')
-                .send({
-                    email: 'does_not_exist@email.com',
-                    password: 'password'
-                });
+            email = 'abc@email.com';
+            password = 'password';
+
+            const response = await exec();
 
             expect(response.status).toBe(400);
         });
 
         it('returns 400 if email/password combination is invalid', async () => {
-            const response = await request(server)
-                .post('/api/auth')
-                .send({
-                    email: 'exists@email.com',
-                    password: 'wrongpassword'
-                });
+            email = 'test@email.com';
+            password = 'wrongpassword';
+
+            const response = await exec();
 
             expect(response.status).toBe(400);
         });
 
         it('returns a 200 response with a valid JWT on successful login', async () => {
-            const response = await request(server)
-                .post('/api/auth')
-                .send({
-                    email: 'exists@email.com',
-                    password: 'password'
-                });
+            email = 'test@email.com';
+            password = 'password';
 
-            const decoded = jwt.verify(response.body, process.env.JWT_PRIVATE_KEY);
+            const response = await exec();
 
-            expect(decoded).toHaveProperty('_id', 'iat', 'isAdmin');
+            const jwtDecoded = jwt.verify(response.body.token, process.env.JWT_PRIVATE_KEY);
+
+            expect(jwtDecoded).toHaveProperty('_id', 'iat', 'isAdmin');
             expect(response.status).toBe(200);
         });
     });
