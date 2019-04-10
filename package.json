@@ -4,7 +4,7 @@
   "description": "Simple image storage and manipulation API",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "test-watch": "jest --watchAll --verbose --runInBand"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "express-async-errors": "^3.1.1",
     "helmet": "^3.16.0",
     "joi": "^14.3.1",
+    "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.0",
     "winston": "^3.2.1",
