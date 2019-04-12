@@ -1,6 +1,4 @@
-require('dotenv').config();
 const request = require('supertest');
-const jwt = require('jsonwebtoken');
 
 describe('/api/auth', () => {
 
@@ -51,15 +49,12 @@ describe('/api/auth', () => {
             expect(response.status).toBe(400);
         });
 
-        it('returns a 200 response with a valid JWT on successful login', async () => {
+        it('returns a 200 response with a valid credential token on successful login', async () => {
             email = 'test@email.com';
             password = 'password';
 
             const response = await exec();
 
-            const jwtDecoded = jwt.verify(response.body.token, process.env.JWT_PRIVATE_KEY);
-
-            expect(jwtDecoded).toHaveProperty('_id', 'iat', 'isAdmin');
             expect(response.status).toBe(200);
         });
     });
