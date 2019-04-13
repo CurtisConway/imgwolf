@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const { signInWithEmailAndPassword, createSessionCookie } = require('../services/firebase');
+const {
+    signInWithEmailAndPassword,
+    createSessionCookie,
+    getUserByEmail,
+    generatePasswordResetLink
+} = require('../services/firebase');
 
 router.post('/', async (req, res) => {
     const {error} = validate(req.body);
@@ -10,12 +15,12 @@ router.post('/', async (req, res) => {
     }
 
     const user = await signIn(req, res);
-    if(!user){
+    if (!user) {
         return res.status(400).send('Invalid email or password.');
     }
 
     const idToken = await getIdToken(user.user);
-    if(!idToken){
+    if (!idToken) {
         return res.status(500).send('Something went wrong on the server.');
     }
 
@@ -32,23 +37,47 @@ router.post('/', async (req, res) => {
         .send(user);
 });
 
-async function signIn(req, res){
+router.post('/reset', async (req, res) => {
+    const validation = Joi.validate(req.body.email, Joi.string().min(5).max(255).required().email());
+    if (validation.error) {
+        return res.status(400).send(validation.error.details[0].message);
+    }
+
+    const user = await getUser(req);
+    if(!user){
+        return res.status(404).send('User with that email not found.');
+    }
+
+    const resetLink = await generatePasswordResetLink(req.body.email);
+
+    return res.status(200).send({ resetLink })
+});
+
+async function signIn(req) {
     try {
         return await signInWithEmailAndPassword({
             email: req.body.email,
             password: req.body.password,
         });
-    } catch(ex){
+    } catch (ex) {
         return null;
     }
 }
 
-async function getIdToken(user){
-    if(user.getIdToken != null){
+async function getIdToken(user) {
+    if (user.getIdToken != null) {
         return await user.getIdToken();
     }
 
     return null;
+}
+
+async function getUser(req){
+    try {
+        return await getUserByEmail(req.body.email);
+    } catch (ex) {
+        return null;
+    }
 }
 
 function validate(req) {
