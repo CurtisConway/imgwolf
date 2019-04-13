@@ -2,7 +2,7 @@ const firebase = require('firebase');
 const admin = require('firebase-admin');
 
 /**
- * Sign in with Firebase email and password through the REST API
+ * Sign in with Firebase email and password
  *
  * @param email {string}
  * @param password [string}
@@ -13,7 +13,19 @@ function signInWithEmailAndPassword({email, password}) {
 }
 
 /**
- * Create a session cookie with a user id token - expires after 1 hour
+ * Generate a password reset email link for a user
+ *
+ * @param email {string}
+ * @returns {Promise}
+ */
+async function sendPasswordResetEmail(email){
+    return firebase.auth().sendPasswordResetEmail(email, {
+        url: process.env.APP_FRONTEND_UI_URL
+    });
+}
+
+/**
+ * Create a session cookie with a user id token
  *
  * @param idToken {string}
  * @returns {Promise}
@@ -58,15 +70,14 @@ async function getUserByEmail(email){
 
 
 /**
- * Generate a password reset link for a user
+ * Update user by uid
  *
- * @param email {string}
+ * @param uid {string}
+ * @param properties {object}
  * @returns {Promise}
  */
-async function generatePasswordResetLink(email){
-    return admin.auth().generatePasswordResetLink(email, {
-        url: process.env.APP_FRONTEND_UI_URL
-    });
+async function updateUserByUid(uid, properties = {}){
+    return admin.auth().updateUser(uid, properties);
 }
 
 module.exports = {
@@ -74,7 +85,8 @@ module.exports = {
     createSessionCookie,
     verifySessionCookie,
     getUserByUid,
-    generatePasswordResetLink,
     getUserByEmail,
+    updateUserByUid,
+    sendPasswordResetEmail,
 };
 

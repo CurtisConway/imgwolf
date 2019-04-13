@@ -5,7 +5,7 @@ const {
     signInWithEmailAndPassword,
     createSessionCookie,
     getUserByEmail,
-    generatePasswordResetLink
+    sendPasswordResetEmail
 } = require('../services/firebase');
 
 router.post('/', async (req, res) => {
@@ -48,9 +48,13 @@ router.post('/reset', async (req, res) => {
         return res.status(404).send('User with that email not found.');
     }
 
-    const resetLink = await generatePasswordResetLink(req.body.email);
+    try {
+        await sendPasswordResetEmail(req.body.email);
+    } catch(ex){
+        return res.status(500).send(ex);
+    }
 
-    return res.status(200).send({ resetLink })
+    return res.status(200).send('A link has been sent to your email.')
 });
 
 async function signIn(req) {
