@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
-const { getUser } = require('../services/firebase');
+const { getUserByUid } = require('../services/firebase');
 
 router.get('/', auth, async (req, res) => {
     let user;
 
     try {
-        user = await getUser(req.currentUserId);
+        user = await getUserByUid(req.currentUserId);
     } catch(err){
         return res.status(404).send('User Not Found');
     }
