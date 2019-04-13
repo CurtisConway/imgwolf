@@ -22,7 +22,7 @@ describe('/api/auth', () => {
             server.close();
         });
 
-        it('returns 400 if validation fails', async () => {
+        it('returns a 400 response if validation fails', async () => {
             email = 'abc';
             password = 'abc';
 
@@ -31,7 +31,7 @@ describe('/api/auth', () => {
             expect(response.status).toBe(400);
         });
 
-        it('returns 400 if user does not exist', async () => {
+        it('returns a 400 response if user does not exist', async () => {
             email = 'abc@email.com';
             password = 'password';
 
@@ -40,7 +40,7 @@ describe('/api/auth', () => {
             expect(response.status).toBe(400);
         });
 
-        it('returns 400 if email/password combination is invalid', async () => {
+        it('returns a 400 response if email/password combination is invalid', async () => {
             email = 'test@email.com';
             password = 'wrongpassword';
 
