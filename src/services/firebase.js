@@ -41,12 +41,40 @@ function verifySessionCookie(cookie){
  * @param uid {string}
  * @returns {Promise}
  */
-async function getUser(uid){
+async function getUserByUid(uid){
     return admin.auth().getUser(uid);
 }
 
-module.exports.signInWithEmailAndPassword = signInWithEmailAndPassword;
-module.exports.createSessionCookie = createSessionCookie;
-module.exports.verifySessionCookie = verifySessionCookie;
-module.exports.getUser = getUser;
+
+/**
+ * Get user by email
+ *
+ * @param email {string}
+ * @returns {Promise}
+ */
+async function getUserByEmail(email){
+    return admin.auth().getUserByEmail(email);
+}
+
+
+/**
+ * Generate a password reset link for a user
+ *
+ * @param email {string}
+ * @returns {Promise}
+ */
+async function generatePasswordResetLink(email){
+    return admin.auth().generatePasswordResetLink(email, {
+        url: process.env.APP_FRONTEND_UI_URL
+    });
+}
+
+module.exports = {
+    signInWithEmailAndPassword,
+    createSessionCookie,
+    verifySessionCookie,
+    getUserByUid,
+    generatePasswordResetLink,
+    getUserByEmail,
+};
 
