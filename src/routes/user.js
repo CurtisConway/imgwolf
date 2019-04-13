@@ -12,7 +12,15 @@ router.get('/', auth, async (req, res) => {
         return res.status(404).send('User Not Found');
     }
 
-    return res.status(200).send({user});
+    return res.status(200).send({
+        user: {
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName || '',
+            photoURL: user.photoURL || '',
+            verified: user.emailVerified,
+        }
+    });
 });
 
 module.exports = router;

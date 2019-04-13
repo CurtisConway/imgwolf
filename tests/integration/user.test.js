@@ -58,6 +58,9 @@ describe('/api/user', () => {
             expect(response.status).toBe(200);
             expect(response.body.user).toHaveProperty('uid');
             expect(response.body.user).toHaveProperty('email');
+            expect(response.body.user).toHaveProperty('displayName');
+            expect(response.body.user).toHaveProperty('photoURL');
+            expect(response.body.user).toHaveProperty('verified');
         });
     });
 });
