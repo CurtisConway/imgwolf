@@ -1,4 +1,4 @@
-const { verifySessionCookie } = require('../services/firebase');
+const { verifySessionCookie } = require('../services/firebase-auth');
 
 module.exports = async function (req, res, next) {
     const cookies = req.cookies;

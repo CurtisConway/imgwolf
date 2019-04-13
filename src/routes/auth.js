@@ -6,7 +6,7 @@ const {
     createSessionCookie,
     getUserByEmail,
     sendPasswordResetEmail
-} = require('../services/firebase');
+} = require('../services/firebase-auth');
 
 router.post('/', async (req, res) => {
     const {error} = validate(req.body);

@@ -1,4 +1,4 @@
-const firebase = require('firebase');
+const firebaseAuth = require('firebase');
 const admin = require('firebase-admin');
 
 /**
@@ -9,7 +9,7 @@ const admin = require('firebase-admin');
  * @returns {Promise}
  */
 function signInWithEmailAndPassword({email, password}) {
-    return firebase.auth().signInWithEmailAndPassword(email, password);
+    return firebaseAuth.auth().signInWithEmailAndPassword(email, password);
 }
 
 /**
@@ -19,7 +19,7 @@ function signInWithEmailAndPassword({email, password}) {
  * @returns {Promise}
  */
 async function sendPasswordResetEmail(email){
-    return firebase.auth().sendPasswordResetEmail(email, {
+    return firebaseAuth.auth().sendPasswordResetEmail(email, {
         url: process.env.APP_FRONTEND_UI_URL
     });
 }

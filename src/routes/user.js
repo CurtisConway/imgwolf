@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const Joi = require('joi');
-const { getUserByUid, updateUserByUid } = require('../services/firebase');
+const { getUserByUid, updateUserByUid } = require('../services/firebase-auth');
 
 router.get('/', auth, async (req, res) => {
     let user;

@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { signInWithEmailAndPassword, createSessionCookie } = require('../../src/services/firebase');
+const { signInWithEmailAndPassword, createSessionCookie } = require('../../src/services/firebase-auth');
 
 describe('/api/user', () => {
     let server;
