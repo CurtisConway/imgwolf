@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const { signInWithEmailAndPassword } = require('../services/firebase');
+const { signInWithEmailAndPassword, createSessionCookie } = require('../services/firebase');
 
 router.post('/', async (req, res) => {
     const {error} = validate(req.body);
@@ -9,16 +9,47 @@ router.post('/', async (req, res) => {
         return res.status(400).send(error.details[0].message);
     }
 
-    const user = await signInWithEmailAndPassword({
-        email: req.body.email,
-        password: req.body.password,
-    })
-        .catch(() => {
-            return res.status(400).send('Invalid email or password.');
-        });
+    const user = await signIn(req, res);
+    if(!user){
+        return res.status(400).send('Invalid email or password.');
+    }
 
-    return res.status(200).send(user.data);
+    const idToken = await getIdToken(user.user);
+    if(!idToken){
+        return res.status(500).send('Something went wrong on the server.');
+    }
+
+    const sessionCookie = await createSessionCookie(idToken);
+    const sessionOptions = {
+        maxAge: Number(process.env.FIREBASE_SESSION_DURATION),
+        httpOnly: true,
+        secure: true
+    };
+
+    return res
+        .cookie('session', sessionCookie, sessionOptions)
+        .status(200)
+        .send(user);
 });
+
+async function signIn(req, res){
+    try {
+        return await signInWithEmailAndPassword({
+            email: req.body.email,
+            password: req.body.password,
+        });
+    } catch(ex){
+        return null;
+    }
+}
+
+async function getIdToken(user){
+    if(user.getIdToken != null){
+        return await user.getIdToken();
+    }
+
+    return null;
+}
 
 function validate(req) {
     const schema = {

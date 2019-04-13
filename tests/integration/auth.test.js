@@ -11,8 +11,8 @@ describe('/api/auth', () => {
         const exec = async () => {
             return await request(server)
                 .post('/api/auth')
-                .send({ email, password })
-                .set('Accept', 'application/json');
+                .set('Accept', 'application/json')
+                .send({ email, password });
         };
 
         beforeEach(() => {
@@ -49,12 +49,13 @@ describe('/api/auth', () => {
             expect(response.status).toBe(400);
         });
 
-        it('returns a 200 response with a valid credential token on successful login', async () => {
+        it('returns a 200 response with a session cookie on successful login', async () => {
             email = 'test@email.com';
             password = 'password';
 
             const response = await exec();
 
+            expect(response.headers['set-cookie'][0]).toContain('session');
             expect(response.status).toBe(200);
         });
     });

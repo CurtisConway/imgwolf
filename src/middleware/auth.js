@@ -1,18 +1,20 @@
-const { refreshUserToken } = require('../services/firebase');
+const { verifySessionCookie } = require('../services/firebase');
 
 module.exports = async function (req, res, next) {
-    const token = req.header('x-auth-token');
-    if(!token) return res.status(401).send('Access denied. No token provided.');
+    const cookies = req.cookies;
+    if(!cookies.session) return res.status(401).send('Access denied. No cookie provided.');
 
-    const refresh = await refreshUserToken(token)
-        .catch(err => {
-            if(err.code === 'TOKEN_EXPIRED'){
-                return res.status(403).send('Session Expired. Please Log in Again');
-            }
+    let user;
+    try {
+        user = await verifySessionCookie(cookies.session);
+    } catch(ex){
+        if(ex.code === 'auth/session-cookie-expired'){
+            return res.status(403).send('Session Expired. Please Log in Again.');
+        }
 
-            return res.status(401).send('Access denied. User not authorized.');
-        });
+        return res.status(401).send('Access denied. User not authorized.');
+    }
 
-    req.newRefreshToken = refresh.data.refresh_token;
+    req.currentUserId = user.uid;
     next();
 };
