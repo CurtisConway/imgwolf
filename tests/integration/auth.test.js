@@ -95,14 +95,5 @@ describe('/api/auth', () => {
 
             expect(response.status).toBe(404);
         });
-
-        it('returns a 200 response with a reset link if the user exists', async () => {
-            email = process.env.MY_EMAIL;
-
-            const response = await exec();
-
-            expect(response.status).toBe(200);
-            expect(response.body).toHaveProperty('resetLink');
-        });
     });
 });
