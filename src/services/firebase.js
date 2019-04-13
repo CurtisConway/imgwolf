@@ -1,4 +1,5 @@
-const axios = require('axios');
+const firebase = require('firebase');
+const admin = require('firebase-admin');
 
 /**
  * Sign in with Firebase email and password through the REST API
@@ -7,33 +8,45 @@ const axios = require('axios');
  * @param password [string}
  * @returns {Promise}
  */
-async function signInWithEmailAndPassword({email, password}) {
-    const url = `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=${
-        process.env.FIREBASE_API_KEY
-        }`;
+function signInWithEmailAndPassword({email, password}) {
+    return firebase.auth().signInWithEmailAndPassword(email, password);
+}
 
-    return await axios.post(url, {
-        email: email,
-        password: password,
-        returnSecureToken: true,
+/**
+ * Create a session cookie with a user id token - expires after 1 hour
+ *
+ * @param idToken {string}
+ * @returns {Promise}
+ */
+function createSessionCookie(idToken){
+    return admin.auth().createSessionCookie(idToken, {
+        expiresIn: Number(process.env.FIREBASE_SESSION_DURATION)
     });
 }
 
 /**
- * Refresh the users session using the Firebase refresh token
+ * Verify a session cookie
  *
- * @param refreshToken {string}
+ * @param cookie {string}
  * @returns {Promise}
  */
-async function refreshUserToken(refreshToken) {
-    const url = `https://securetoken.googleapis.com/v1/token?key=${process.env.FIREBASE_API_KEY}`;
+function verifySessionCookie(cookie){
+    return admin.auth().verifySessionCookie(cookie, true);
+}
 
-    return await axios.post(url, {
-        grant_type: 'refresh_token',
-        refresh_token: refreshToken,
-    });
+
+/**
+ * Get user by uid
+ *
+ * @param uid {string}
+ * @returns {Promise}
+ */
+async function getUser(uid){
+    return admin.auth().getUser(uid);
 }
 
 module.exports.signInWithEmailAndPassword = signInWithEmailAndPassword;
-module.exports.refreshUserToken = refreshUserToken;
+module.exports.createSessionCookie = createSessionCookie;
+module.exports.verifySessionCookie = verifySessionCookie;
+module.exports.getUser = getUser;
 
