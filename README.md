@@ -58,7 +58,7 @@ Update user data by key/value pairs
 | imageURL   | string     | 
 
 ```javascript
-await axios.post('/api/auth', {
+axios.post('/api/auth', {
     displayName: 'Username',
     imageURL: 'https://placehold.it/300x300'
 });
