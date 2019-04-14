@@ -68,7 +68,7 @@ await axios.post('/api/auth', {
 #### POST 
 **/api/image**
 
-Upload an image and create an item in the database, must be sent as content type multipart/form-data
+Upload an image and create an item in the database, **must be sent as content type multipart/form-data**
 
 |   Param    |    Type    |    Required   
 |------------|------------|---------------
