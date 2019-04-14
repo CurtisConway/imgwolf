@@ -18,7 +18,7 @@ Signs a user in and provides them with a session token
 axios.post('/api/auth', {
     email: 'test@email.com',
     password: 'password'
-})
+});
 ```
 <hr/>
 
@@ -34,7 +34,7 @@ Provides the user with a password reset email at the provided email address, pro
 ```javascript
 axios.post('/api/auth/reset', {
     email: 'test@email.com',
-})
+});
 ```
 <hr />
 
@@ -62,7 +62,7 @@ Signs a user in and provides them with a session token
 await axios.post('/api/auth', {
     displayName: 'Username',
     imageURL: 'https://placehold.it/300x300'
-})
+});
 ```
 <hr />
 
@@ -100,7 +100,7 @@ const config = {
         processData: false,
         contentType: false,
     }
-}
+};
 
 axios.post('/api/auth', formData, config);
 ```
