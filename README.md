@@ -1,6 +1,5 @@
 # imgwolf
-Simple image storage and manipulation API. Connects to your Amazon S3 Bucket for storage, and a serverless image 
-handler for manipulation.
+Simple image storage and manipulation API. Connects to Firebase for authentication, your Amazon S3 Bucket for storage, and a serverless image handler for manipulation.
 
 ## Routes
 
