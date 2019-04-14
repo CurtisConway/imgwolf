@@ -5,7 +5,7 @@ handler for manipulation.
 ## Routes
 
 #### POST 
-**/api/auth
+**/api/auth**
 
 Signs a user in and provides them with a session token
 
@@ -22,7 +22,7 @@ axios.post('/api/auth', {
 ```
 
 #### POST 
-**/api/auth/reset
+**/api/auth/reset**
 
 Provides the user with a password reset email at the provided email address, provided it exists in the user database
 
@@ -37,7 +37,7 @@ axios.post('/api/auth/reset', {
 ```
 
 #### GET 
-**/api/user
+**/api/user**
 
 Retrieves the currently signed in user's ID from their session token and returns their user data
 
@@ -46,7 +46,7 @@ axios.get('/api/user');
 ```
 
 #### POST 
-**/api/user/update
+**/api/user/update**
 
 Signs a user in and provides them with a session token
 
@@ -63,7 +63,7 @@ await axios.post('/api/auth', {
 ```
 
 #### POST 
-**/api/image
+**/api/image**
 
 Upload an image and create an item in the database, must be sent as content type multipart/form-data
 
