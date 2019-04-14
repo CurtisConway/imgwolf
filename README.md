@@ -51,7 +51,7 @@ axios.get('/api/user');
 #### POST 
 **/api/user/update**
 
-Signs a user in and provides them with a session token
+Update user data by key/value pairs
 
 |   Param    |    Type    |    Required   
 |------------|------------|---------------
