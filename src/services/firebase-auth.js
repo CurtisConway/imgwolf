@@ -4,8 +4,8 @@ const admin = require('firebase-admin');
 /**
  * Sign in with Firebase email and password
  *
- * @param email {string}
- * @param password [string}
+ * @param email {String}
+ * @param password {String}
  * @returns {Promise}
  */
 function signInWithEmailAndPassword({email, password}) {
@@ -15,7 +15,7 @@ function signInWithEmailAndPassword({email, password}) {
 /**
  * Generate a password reset email link for a user
  *
- * @param email {string}
+ * @param email {String}
  * @returns {Promise}
  */
 async function sendPasswordResetEmail(email){
@@ -27,7 +27,7 @@ async function sendPasswordResetEmail(email){
 /**
  * Create a session cookie with a user id token
  *
- * @param idToken {string}
+ * @param idToken {String}
  * @returns {Promise}
  */
 function createSessionCookie(idToken){
@@ -39,7 +39,7 @@ function createSessionCookie(idToken){
 /**
  * Verify a session cookie
  *
- * @param cookie {string}
+ * @param cookie {String}
  * @returns {Promise}
  */
 function verifySessionCookie(cookie){
@@ -50,7 +50,7 @@ function verifySessionCookie(cookie){
 /**
  * Get user by uid
  *
- * @param uid {string}
+ * @param uid {String}
  * @returns {Promise}
  */
 async function getUserByUid(uid){
@@ -61,7 +61,7 @@ async function getUserByUid(uid){
 /**
  * Get user by email
  *
- * @param email {string}
+ * @param email {String}
  * @returns {Promise}
  */
 async function getUserByEmail(email){
@@ -72,8 +72,8 @@ async function getUserByEmail(email){
 /**
  * Update user by uid
  *
- * @param uid {string}
- * @param properties {object}
+ * @param uid {String}
+ * @param properties {Object}
  * @returns {Promise}
  */
 async function updateUserByUid(uid, properties = {}){
