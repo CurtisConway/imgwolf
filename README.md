@@ -20,7 +20,8 @@ axios.post('/api/auth', {
     password: 'password'
 })
 ```
-<hr>
+<hr/>
+
 #### POST 
 **/api/auth/reset**
 
@@ -35,7 +36,8 @@ axios.post('/api/auth/reset', {
     email: 'test@email.com',
 })
 ```
-<hr>
+<hr />
+
 #### GET 
 **/api/user**
 
@@ -44,7 +46,8 @@ Retrieves the currently signed in user's ID from their session token and returns
 ```javascript
 axios.get('/api/user');
 ```
-<hr>
+<hr />
+
 #### POST 
 **/api/user/update**
 
@@ -61,7 +64,8 @@ await axios.post('/api/auth', {
     imageURL: 'https://placehold.it/300x300'
 })
 ```
-<hr>
+<hr />
+
 #### POST 
 **/api/image**
 
