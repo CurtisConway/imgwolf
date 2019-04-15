@@ -4,7 +4,7 @@
   "description": "Simple image storage and manipulation API",
   "main": "index.js",
   "scripts": {
-    "test": "jest --verbose --runInBand",
+    "test": "jest --verbose --runInBand --forceExit",
     "test-watch": "jest --watchAll --verbose --runInBand"
   },
   "repository": {
