@@ -1,4 +1,7 @@
 # imgwolf
+
+[![Build Status](https://travis-ci.org/CurtisConway/imgwolf.svg?branch=master)](https://travis-ci.org/CurtisConway/imgwolf)
+
 Simple image storage and manipulation API. Connects to Firebase for authentication, your Amazon S3 Bucket for storage, and a serverless image handler for manipulation.
 
 ## Routes
