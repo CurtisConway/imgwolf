@@ -30,7 +30,12 @@ const imageSchema = new mongoose.Schema({
     tags: {
         type: Array,
         required: true,
-    }
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now,
+    },
 });
 
 const ImageModel = mongoose.model('Image', imageSchema);
