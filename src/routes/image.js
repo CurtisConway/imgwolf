@@ -3,7 +3,6 @@ const router = express.Router();
 const auth = require('../middleware/auth');
 const { uploadImage } = require('../services/aws-s3');
 const multer = require('multer');
-const Joi = require('joi');
 const { ImageModel, validateImage } = require('../models/image');
 
 const upload = multer({ dest: 'uploads/' });
@@ -40,6 +39,12 @@ router.post('/', auth, upload.single('file'), async (req, res) => {
     const post = await data.save();
 
     return res.status(200).send(post);
+});
+
+router.get('/', auth, async (req, res) => {
+    const images = await ImageModel.find().sort('title');
+
+    return res.status(200).send(images);
 });
 
 router.get('/:id', auth, async (req, res) => {

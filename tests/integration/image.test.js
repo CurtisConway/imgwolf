@@ -71,6 +71,38 @@ describe('/api/image', () => {
         });
     });
 
+    describe('GET /', () => {
+        const exec = async () => {
+            return await request(server)
+                .get(`/api/image/`)
+                .set('Cookie', `session=${sessionCookie}`)
+                .set('Accept', 'application/json')
+                .send();
+        };
+
+        it('returns a 403 response with an expired session cookie', async () => {
+            sessionCookie = 'eyJhbGciOiJSUzI1NiIsImtpZCI6InNrSUJOZyJ9.eyJpc3MiOiJodHRwczovL3Nlc3Npb24uZmlyZWJhc2UuZ29vZ2xlLmNvbS9pbWd3b2xmIiwiYXVkIjoiaW1nd29sZiIsImF1dGhfdGltZSI6MTU1NTEyNzkzOCwidXNlcl9pZCI6ImVUVlRvbTNmUFJVeXRiYWxHNXF6RzREUnlScDEiLCJzdWIiOiJlVFZUb20zZlBSVXl0YmFsRzVxekc0RFJ5UnAxIiwiaWF0IjoxNTU1MTI3OTM5LCJleHAiOjE1NTUxMjgyOTksImVtYWlsIjoidGVzdEBlbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGVzdEBlbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.Zor0cWwKa4k1fnsYlZSheGxdpC8njd1wqx5bdM4dvFK1D0BRAhYllwPQ3gB1Zqr4RDnzYK9_ths_WWqGgdwoi1YlK2CuMcR3TIonAK5XSchn65RGzlWoylqeM7RFfWN0gMJyRw4ylO69Sy3y5XO5m8DD_BSII_KvYXpUVm2R4JrUv049vjduBcWgRZUy2gHG4_TYKpCUUPa8Coiqx3iJ1pE7jGJ5TPdRqdInnjHy7SGK0YONM_sHDRekw5hm6EululD9hgJZIyiNxRtde8udFL_zCFWenmyxGuSNc1NgQVN8ushoZ1-fxWuPdIhlLWuDe9_SifajModHQ1AAaqksCA';
+
+            const response = await exec();
+
+            expect(response.status).toBe(403);
+        });
+
+        it('returns a 200 response and images', async () => {
+            const response = await exec();
+
+            expect(response.status).toBe(200);
+            expect(Array.isArray(response.body)).toBe(true);
+            expect(response.body[0]).toHaveProperty('_id');
+            expect(response.body[0]).toHaveProperty('title');
+            expect(response.body[0]).toHaveProperty('tags');
+            expect(response.body[0]).toHaveProperty('source');
+            expect(response.body[0]).toHaveProperty('filesize');
+            expect(response.body[0]).toHaveProperty('mimetype');
+            expect(response.body[0]).toHaveProperty('path');
+        });
+    });
+
     describe('GET /id', () => {
         let id;
 

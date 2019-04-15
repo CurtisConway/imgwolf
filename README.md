@@ -108,6 +108,18 @@ axios.post('/api/auth', formData, config);
 <hr />
 
 #### GET 
+**/api/image*
+
+Get all images
+
+
+```javascript
+axios.get('/api/image');
+```
+
+<hr />
+
+#### GET 
 **/api/image/:id**
 
 Get an image by ID
