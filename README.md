@@ -108,14 +108,29 @@ axios.post('/api/auth', formData, config);
 <hr />
 
 #### GET 
-**/api/image*
+**/api/image**
 
-Get all images
+Get all images paginated and sorted
 
+|   Param    |    Type    |    Required   
+|------------|------------|---------------
+|    sort    | string     | 
+|    page    | number     | 
+|    limit   | number     | 
 
 ```javascript
-axios.get('/api/image');
+axios.get('/api/image', {
+    params: {
+        sort: 'createdAt',
+        page: 1,
+        limit: 20
+    }
+});
 ```
+
+The above request would result in the following query string:
+
+`/api/image?sort=createdAt&page=1&limit=20`
 
 <hr />
 
