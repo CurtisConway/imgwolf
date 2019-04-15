@@ -18,8 +18,8 @@ describe('/api/auth', () => {
         beforeEach(() => {
             server = require('../../index');
         });
-        afterEach(() => {
-            server.close();
+        afterEach(async () => {
+            await server.close();
         });
 
         it('returns a 400 response if validation fails', async () => {

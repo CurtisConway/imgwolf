@@ -3,6 +3,7 @@ const auth = require('../../../src/middleware/auth');
 describe('auth middleware', () => {
     let sessionCookie;
 
+    // Stub a request object with a response
     const exec = () => {
         let req = {
             cookies: {
