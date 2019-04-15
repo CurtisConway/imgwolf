@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000;
 
 require('./startup/logger')();
 require('./startup/firebase')();
+require('./startup/db')();
 require('./startup/routes')(app);
 require('./startup/aws')();
 require('./startup/validation')();

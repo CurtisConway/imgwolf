@@ -80,6 +80,7 @@ Upload an image and create an item in the database, **must be sent as content ty
 ```html
 <input type="file" id="imageInput">
 ```
+
 ```javascript
 const imageInput = document.getElementById('imageInput');
 const formData = new FormData();
@@ -104,4 +105,15 @@ const config = {
 axios.post('/api/auth', formData, config);
 ```
 
+<hr />
 
+#### GET 
+**/api/image/:id**
+
+Get an image by ID
+
+
+```javascript
+axios.get('/api/image/5cb3d4ba2190e24eb48b4a3b');
+```
+<hr />

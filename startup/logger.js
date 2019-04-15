@@ -1,4 +1,5 @@
 const winston = require('winston');
+require('winston-mongodb');
 
 module.exports = function () {
     winston.createLogger({
@@ -16,6 +17,14 @@ module.exports = function () {
             new winston.transports.Console({
                 handleExceptions: true,
             }),
+            new winston.transports.MongoDB({
+                db: process.env.DB_HOST,
+                level: 'error',
+                handleExceptions: true,
+                options: {
+                    useNewUrlParser: true
+                }
+            })
         ],
     });
 
