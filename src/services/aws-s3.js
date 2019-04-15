@@ -14,14 +14,14 @@ const s3 = new AWS.S3({
  * @param data {Object}
  * @returns {Promise}
  */
-async function uploadImage({title, file, collection}){
+async function uploadImage({title, file}){
     const uploadedFile = await readFile(file);
     const imageExtension = file.mimetype.split('/')[1];
 
     fs.unlink(file.path, (err) => { if(err) new Error('Failed to delete temporary file')});
 
     return await s3Upload({
-        key: `imgwolf/${collection}/${title}.${imageExtension}`,
+        key: `imgwolf/${title}.${imageExtension}`,
         body: uploadedFile
     });
 }
