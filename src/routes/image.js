@@ -42,7 +42,19 @@ router.post('/', auth, upload.single('file'), async (req, res) => {
 });
 
 router.get('/', auth, async (req, res) => {
-    const images = await ImageModel.find().sort('title');
+    const acceptedSortValueParams =
+        ['title', 'createdAt', 'filesize', 'mimetype', '-title', '-createdAt', '-filesize', '-mimetype'];
+    const sortValue = acceptedSortValueParams.indexOf(req.query.sort) !== -1 ? req.query.sort : 'createdAt';
+
+    const limit = req.query.limit || 20;
+    const page = req.query.page || 1;
+    const skip = (page - 1) * limit;
+
+    const images = await ImageModel
+        .find()
+        .sort(sortValue)
+        .limit(limit)
+        .skip(skip);
 
     return res.status(200).send(images);
 });
