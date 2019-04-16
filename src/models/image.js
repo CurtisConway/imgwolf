@@ -22,7 +22,7 @@ const imageSchema = new mongoose.Schema({
         required: true,
         maxlength: 1024,
     },
-    path: {
+    s3Key: {
         type: String,
         required: true,
         maxlength: 1024,
@@ -51,6 +51,6 @@ function validateImage(image){
     return Joi.validate(image, schema);
 }
 
-exports.validateImage = validateImage;
-exports.imageSchema = imageSchema;
-exports.ImageModel = ImageModel;
+module.exports.validateImage = validateImage;
+module.exports.imageSchema = imageSchema;
+module.exports.ImageModel = ImageModel;

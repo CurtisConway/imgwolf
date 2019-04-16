@@ -34,7 +34,7 @@ const ImageController = {
         }
 
         data.set('source', image.Location);
-        data.set('path', image.key);
+        data.set('s3Key', image.key);
 
         const post = await data.save();
 
