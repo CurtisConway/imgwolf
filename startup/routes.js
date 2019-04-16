@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const auth = require('../src/routes/auth');
 const user = require('../src/routes/user');
 const image = require('../src/routes/image');
+const category = require('../src/routes/category');
 const error = require('../src/middleware/error');
 
 module.exports = function (app) {
@@ -16,6 +17,7 @@ module.exports = function (app) {
     app.use('/api/auth', auth);
     app.use('/api/user', user);
     app.use('/api/image', image);
+    app.use('/api/category', category);
 
     app.use(error);
 };
