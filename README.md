@@ -6,7 +6,7 @@ A simple image storage and manipulation API. Connects to Firebase for authentica
 
 # Routes
 
-##Auth 
+## Auth 
 
 #### POST 
 **/api/auth**
@@ -42,7 +42,7 @@ axios.post('/api/auth/reset', {
 ```
 <hr />
 
-##User 
+## User 
 
 #### GET 
 **/api/user**
@@ -72,7 +72,7 @@ axios.post('/api/user/update', {
 ```
 <hr />
 
-##Image 
+## Image 
 
 #### POST 
 **/api/image**
