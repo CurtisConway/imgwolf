@@ -12,6 +12,6 @@ require('./startup/routes')(app);
 require('./startup/aws')();
 require('./startup/validation')();
 
-const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
+const server = app.listen(port);
 
 module.exports = server;
