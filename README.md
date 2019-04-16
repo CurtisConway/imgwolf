@@ -2,9 +2,11 @@
 
 [![Build Status](https://travis-ci.org/CurtisConway/imgwolf.svg?branch=master)](https://travis-ci.org/CurtisConway/imgwolf)
 
-Simple image storage and manipulation API. Connects to Firebase for authentication, your Amazon S3 Bucket for storage, and a serverless image handler for manipulation.
+A simple image storage and manipulation API. Connects to Firebase for authentication, your Amazon S3 Bucket for storage, and a serverless image handler for manipulation.
 
-## Routes
+# Routes
+
+##Auth 
 
 #### POST 
 **/api/auth**
@@ -40,6 +42,8 @@ axios.post('/api/auth/reset', {
 ```
 <hr />
 
+##User 
+
 #### GET 
 **/api/user**
 
@@ -68,6 +72,8 @@ axios.post('/api/user/update', {
 ```
 <hr />
 
+##Image 
+
 #### POST 
 **/api/image**
 
@@ -83,7 +89,6 @@ Upload an image and create an item in the database, **must be sent as content ty
 ```html
 <input type="file" id="imageInput">
 ```
-
 ```javascript
 const imageInput = document.getElementById('imageInput');
 const formData = new FormData();
