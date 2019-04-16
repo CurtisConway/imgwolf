@@ -61,7 +61,7 @@ Update user data by key/value pairs
 | imageURL   | string     | 
 
 ```javascript
-axios.post('/api/auth', {
+axios.post('/api/user/update', {
     displayName: 'Username',
     imageURL: 'https://placehold.it/300x300'
 });
