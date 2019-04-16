@@ -28,12 +28,12 @@ describe('auth middleware', () => {
         return auth(req, res, next);
     };
 
-    beforeEach(() => {
+    beforeAll(() => {
         server = require('../../../index');
     });
 
-    afterEach(() => {
-        server.close();
+    afterAll(async () => {
+        await server.close();
     });
 
     it('returns a 403 response with an expired session cookie', async () => {
@@ -42,5 +42,19 @@ describe('auth middleware', () => {
         const response = await exec();
 
         expect(response.status).toBe(403);
+    });
+
+    it('returns a 401 response with no session cookie', async () => {
+        sessionCookie = '';
+        const response = await exec();
+
+        expect(response.status).toBe(401);
+    });
+
+    it('returns a 401 response an invalid session cookie', async () => {
+        sessionCookie = 'abc';
+        const response = await exec();
+
+        expect(response.status).toBe(401);
     });
 });

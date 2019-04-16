@@ -1,3 +1,4 @@
+require('dotenv').config();
 const request = require('supertest');
 
 describe('/api/auth', () => {
@@ -15,10 +16,10 @@ describe('/api/auth', () => {
                 .send({ email, password });
         };
 
-        beforeEach(() => {
+        beforeAll(() => {
             server = require('../../index');
         });
-        afterEach(async () => {
+        afterAll(async () => {
             await server.close();
         });
 

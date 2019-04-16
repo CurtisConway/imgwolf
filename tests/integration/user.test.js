@@ -1,3 +1,4 @@
+require('dotenv').config();
 const request = require('supertest');
 const { signInWithEmailAndPassword, createSessionCookie } = require('../../src/services/firebase-auth');
 
@@ -5,7 +6,7 @@ describe('/api/user', () => {
     let server;
     let sessionCookie;
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         server = require('../../index');
 
         const user = await signInWithEmailAndPassword({
@@ -17,7 +18,7 @@ describe('/api/user', () => {
         sessionCookie = await createSessionCookie(idToken);
     });
 
-    afterEach(async () => {
+    afterAll(async () => {
         await server.close();
     });
 

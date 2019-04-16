@@ -9,7 +9,7 @@ describe('/api/image', () => {
     let imagePath; // Will be used to delete the s3 image after tests are done
     let imageId; // Used to request the image uploaded in earlier tests
 
-    beforeEach(async () => {
+    beforeAll(async () => {
         server = require('../../index');
 
         const user = await signInWithEmailAndPassword({
@@ -20,16 +20,13 @@ describe('/api/image', () => {
         const idToken = await user.user.getIdToken();
         sessionCookie = await createSessionCookie(idToken);
     });
-
-    afterEach(async () => {
-        await server.close();
-    });
-
     afterAll(async () => {
         await ImageModel.findOneAndDelete({_id: imageId});
 
         const { deleteImage } = require('../../src/services/aws-s3');
         await deleteImage(imagePath);
+
+        await server.close();
     });
 
     describe('POST /', () => {
@@ -55,7 +52,7 @@ describe('/api/image', () => {
             expect(response.status).toBe(200);
             expect(response.body)
                 .toHaveProperty(
-                    '_id', 'title', 'tags', 'source', 'filesize', 'mimetype', 'path', 'createdAt'
+                    '_id', 'title', 'tags', 'source', 'filesize', 'mimetype', 's3Key', 'createdAt'
                 );
         });
     });
@@ -76,7 +73,7 @@ describe('/api/image', () => {
             expect(Array.isArray(response.body)).toBe(true);
             expect(response.body[0])
                 .toHaveProperty(
-                    '_id', 'title', 'tags', 'source', 'filesize', 'mimetype', 'path', 'createdAt'
+                    '_id', 'title', 'tags', 'source', 'filesize', 'mimetype', 's3Key', 'createdAt'
                 );
         });
     });
@@ -100,7 +97,7 @@ describe('/api/image', () => {
             expect(response.status).toBe(200);
             expect(response.body)
                 .toHaveProperty(
-                    '_id', 'title', 'tags', 'source', 'filesize', 'mimetype', 'path', 'createdAt'
+                    '_id', 'title', 'tags', 'source', 'filesize', 'mimetype', 's3Key', 'createdAt'
                 );
         });
 
